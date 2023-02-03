@@ -35,18 +35,22 @@ public class AccountRest {
 			return new ResponseEntity<Account>(user, HttpStatus.OK);
 		}
 
-		return new ResponseEntity<String>("utente non connesso", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<String>("utente non connesso", HttpStatus.UNAUTHORIZED);
 	}
 
 	@PostMapping("")
 	public ResponseEntity<String> create(@RequestBody Account account) {
-		Account newAccount = accountService.save(account);
+		if (accountService.findByEmail(account.getEmail()) != null) {
+			return new ResponseEntity<>("email già registrata", HttpStatus.CONFLICT);
+		} else {
+			Account newAccount = accountService.save(account);
 
-		if (newAccount.getId() != null) {
-			return new ResponseEntity<>("utente creato con successo", HttpStatus.CREATED);
+			if (newAccount.getId() != null) {
+				return new ResponseEntity<>("utente creato con successo", HttpStatus.CREATED);
+			}
+
+			return new ResponseEntity<>("Errore creazione utente", HttpStatus.BAD_REQUEST);
 		}
-
-		return new ResponseEntity<>("Errore creazione utente", HttpStatus.BAD_REQUEST);
 	}
 
 	@GetMapping("/{id}")
