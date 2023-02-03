@@ -23,17 +23,6 @@ public class AccountRest {
 	@Autowired
 	AccountService accountService;
 
-	@PostMapping("")
-	public ResponseEntity<String> create(@RequestBody Account account) {
-		Account newAccount = accountService.save(account);
-
-		if (newAccount.getId() != null) {
-			return new ResponseEntity<>("utente creato con successo", HttpStatus.CREATED);
-		}
-
-		return new ResponseEntity<>("Errore creazione utente", HttpStatus.BAD_REQUEST);
-	}
-
 	@GetMapping("")
 	public ResponseEntity<?> currentUser(Principal principal) {
 		if (principal != null) {
@@ -46,7 +35,18 @@ public class AccountRest {
 			return new ResponseEntity<Account>(user, HttpStatus.OK);
 		}
 
-		return new ResponseEntity<String>("utente non connesso", HttpStatus.OK);
+		return new ResponseEntity<String>("utente non connesso", HttpStatus.NOT_FOUND);
+	}
+
+	@PostMapping("")
+	public ResponseEntity<String> create(@RequestBody Account account) {
+		Account newAccount = accountService.save(account);
+
+		if (newAccount.getId() != null) {
+			return new ResponseEntity<>("utente creato con successo", HttpStatus.CREATED);
+		}
+
+		return new ResponseEntity<>("Errore creazione utente", HttpStatus.BAD_REQUEST);
 	}
 
 	@GetMapping("/{id}")
