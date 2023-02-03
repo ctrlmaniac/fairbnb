@@ -5,7 +5,11 @@ import IconButton from "@mui/material/IconButton";
 import { IconUser } from "@tabler/icons-react";
 import { grey } from "@mui/material/colors";
 
-const Navbar: React.FC = () => {
+interface Props {
+  handleSidebarOpen: Function;
+}
+
+const Navbar: React.FC<Props> = ({ handleSidebarOpen }) => {
   const navigate = useNavigate();
 
   return (
@@ -25,7 +29,11 @@ const Navbar: React.FC = () => {
           >
             fairbnb
           </Typography>
-          <IconButton color="info" sx={{ border: 1 }}>
+          <IconButton
+            color="info"
+            sx={{ border: 1 }}
+            onClick={() => handleSidebarOpen(true)}
+          >
             <IconUser />
           </IconButton>
         </Toolbar>
