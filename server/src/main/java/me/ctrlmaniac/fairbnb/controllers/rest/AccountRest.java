@@ -21,7 +21,7 @@ import me.ctrlmaniac.fairbnb.services.AccountService;
 public class AccountRest {
 
 	@Autowired
-	AccountService accountService;
+	private AccountService accountService;
 
 	@GetMapping("")
 	public ResponseEntity<?> currentUser(Principal principal) {

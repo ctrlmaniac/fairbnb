@@ -22,14 +22,24 @@ const Sidebar: React.FC<Props> = ({ open, onClose }) => {
     <Drawer anchor="right" open={open} onClose={() => onClose(false)}>
       <Box sx={{ width: 250, position: "relative", overflow: "auto" }} p={2}>
         {isEmpty(account) && (
-          <Button
-            variant="outlined"
-            fullWidth
-            sx={{ mb: 2 }}
-            onClick={() => handleNavigate("/login")}
-          >
-            accedi o registrati
-          </Button>
+          <>
+            <Button
+              variant="outlined"
+              fullWidth
+              sx={{ mb: 2 }}
+              onClick={() => handleNavigate("/signin")}
+            >
+              accedi
+            </Button>
+            <Button
+              variant="outlined"
+              fullWidth
+              sx={{ mb: 2 }}
+              onClick={() => handleNavigate("/signup")}
+            >
+              registrati
+            </Button>
+          </>
         )}
         <Button variant="contained" fullWidth>
           affitta

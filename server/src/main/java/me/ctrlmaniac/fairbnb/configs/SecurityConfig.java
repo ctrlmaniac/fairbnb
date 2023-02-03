@@ -16,8 +16,8 @@ public class SecurityConfig {
 				.authorizeHttpRequests()
 				.requestMatchers("/app", "/app/**").authenticated()
 				.requestMatchers("/**", "/api/**").permitAll()
-				// .and().formLogin().loginPage("/login")
-				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
+				.and().formLogin().loginPage("/signin")
+				.and().logout().logoutUrl("/signout").logoutSuccessUrl("/")
 				.and().httpBasic();
 		return http.build();
 	}

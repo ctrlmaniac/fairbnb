@@ -1,17 +1,17 @@
 import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
-import { registerSuccess, registerFail, registerStart } from "./slice";
+import { loginFail, loginStart, loginSuccess } from "./slice";
 import { Account } from "~/types";
 
-export default function register(account: Account): AppThunk {
+export default function login(account: Account): AppThunk {
   return async (dispatch) => {
-    dispatch(registerStart());
+    dispatch(loginStart());
 
     api
-      .post(Endpoints.ACCOUNT, account)
+      .post(`${Endpoints.ACCOUNT}/login`, account)
       .then((response) => {
-        dispatch(registerSuccess());
-        window.location.href = "/signin";
+        dispatch(loginSuccess());
+        window.location.href = "/";
       })
       .catch((error) => {
         let message = "errore";
@@ -22,7 +22,7 @@ export default function register(account: Account): AppThunk {
           message = error.message;
         }
 
-        dispatch(registerFail(message));
+        dispatch(loginFail(message));
       });
   };
 }

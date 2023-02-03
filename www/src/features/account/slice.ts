@@ -7,6 +7,8 @@ interface AccountState {
   dettagli?: Account;
   registering: boolean;
   registerError?: string;
+  logginin: boolean;
+  loginError?: string;
 }
 
 const initialState: AccountState = {
@@ -15,6 +17,8 @@ const initialState: AccountState = {
   dettagli: undefined,
   registering: false,
   registerError: undefined,
+  logginin: false,
+  loginError: undefined,
 };
 
 export const accountSlice = createSlice({
@@ -43,6 +47,18 @@ export const accountSlice = createSlice({
       state.registerError = action.payload;
       state.registering = false;
     },
+    loginStart: (state) => {
+      state.loginError = undefined;
+      state.logginin = true;
+    },
+    loginSuccess: (state) => {
+      state.logginin = false;
+      state.loginError = undefined;
+    },
+    loginFail: (state, action: PayloadAction<string>) => {
+      state.loginError = action.payload;
+      state.logginin = false;
+    },
   },
 });
 
@@ -52,6 +68,9 @@ export const {
   registerStart,
   registerSuccess,
   registerFail,
+  loginStart,
+  loginSuccess,
+  loginFail,
 } = accountSlice.actions;
 
 export default accountSlice.reducer;

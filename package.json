@@ -7,6 +7,9 @@
   ],
   "scripts": {
     "dev": "npx lerna exec --scope=www npm run dev",
+    "build": "npx lerna exec --scope=www npm run build",
+    "collectwww": "bash collectwww.sh",
+    "postbuild": "npm run collectwww",
     "runserver": "mvnw spring-boot:run -pl server"
   },
   "devDependencies": {
