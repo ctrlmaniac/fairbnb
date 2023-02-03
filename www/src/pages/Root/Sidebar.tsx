@@ -21,7 +21,7 @@ const Sidebar: React.FC<Props> = ({ open, onClose }) => {
   return (
     <Drawer anchor="right" open={open} onClose={() => onClose(false)}>
       <Box sx={{ width: 250, position: "relative", overflow: "auto" }} p={2}>
-        {isEmpty(account) && (
+        {isEmpty(account) ? (
           <>
             <Button
               variant="outlined"
@@ -40,10 +40,15 @@ const Sidebar: React.FC<Props> = ({ open, onClose }) => {
               registrati
             </Button>
           </>
+        ) : (
+          <>
+            <Typography gutterBottom>Benvenuto {account.fname}</Typography>
+
+            <Button variant="contained" fullWidth>
+              affitta
+            </Button>
+          </>
         )}
-        <Button variant="contained" fullWidth>
-          affitta
-        </Button>
       </Box>
     </Drawer>
   );
