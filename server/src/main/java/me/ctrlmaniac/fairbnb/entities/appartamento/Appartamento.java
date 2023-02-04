@@ -136,11 +136,10 @@ public class Appartamento {
 				totaleVoti += recensione.getVoto();
 			}
 
-			double rawAvg = totaleVoti / this.getRecensioni().size();
+			double avg = totaleVoti / this.getRecensioni().size();
 
-			double scale = Math.pow(rawAvg, 1);
-
-			return Math.round(rawAvg * scale) / scale;
+			int scale = (int) Math.pow(10, 1);
+			return (double) Math.round(avg * scale) / scale;
 		}
 	}
 
