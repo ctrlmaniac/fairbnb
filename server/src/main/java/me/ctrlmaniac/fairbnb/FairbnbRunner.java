@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 
 import me.ctrlmaniac.fairbnb.entities.Account;
+import me.ctrlmaniac.fairbnb.entities.appartamento.Appartamento;
 import me.ctrlmaniac.fairbnb.entities.appartamento.Servizio;
 import me.ctrlmaniac.fairbnb.services.AccountService;
+import me.ctrlmaniac.fairbnb.services.appartamento.AppartamentoService;
 import me.ctrlmaniac.fairbnb.services.appartamento.ServizioService;
 import me.ctrlmaniac.fairbnb.utils.DataLoader;
 
@@ -30,10 +32,16 @@ public class FairbnbRunner implements CommandLineRunner {
 	private String adminLname;
 
 	@Autowired
+	private DataLoader dataLoader;
+
+	@Autowired
 	private AccountService accountService;
 
 	@Autowired
 	private ServizioService servizioService;
+
+	@Autowired
+	private AppartamentoService appartamentoService;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -44,13 +52,18 @@ public class FairbnbRunner implements CommandLineRunner {
 		accountService.save(admin);
 
 		// Carica i dummy account
-		for (Account account : DataLoader.loadAccountFromCSV("media/csv/utenti.csv")) {
+		for (Account account : dataLoader.loadAccountFromCSV("media/csv/utenti.csv")) {
 			accountService.save(account);
 		}
 
 		// Carica i servizi
-		for (Servizio servizio : DataLoader.loadServiziFromCSV("media/csv/servizi.csv")) {
+		for (Servizio servizio : dataLoader.loadServiziFromCSV("media/csv/servizi.csv")) {
 			servizioService.save(servizio);
+		}
+
+		// Carica gli appartamenti
+		for (Appartamento appartamento : dataLoader.loadAppartamentiFromCSV("media/csv/appartamenti.csv")) {
+			appartamentoService.save(appartamento);
 		}
 	}
 

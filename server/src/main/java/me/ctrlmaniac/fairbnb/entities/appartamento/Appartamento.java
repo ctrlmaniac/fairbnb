@@ -33,7 +33,6 @@ public class Appartamento {
 
 	private String indirizzo;
 	private double costo;
-	private int ospiti; // numero massimo di ospiti
 	private LocalTime checkin;
 	private LocalTime checkout;
 	private boolean feste;
@@ -45,6 +44,9 @@ public class Appartamento {
 
 	@Transient
 	private int numeroCamere;
+
+	@Transient
+	private int ospiti; // numero massimo di ospiti
 
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Servizio> servizi;
@@ -58,7 +60,7 @@ public class Appartamento {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "appartamento")
 	private List<Immagine> immagini;
 
-	public Appartamento(Account host, String indirizzo, double costo, int ospiti, LocalTime checkin, LocalTime checkout,
+	public Appartamento(Account host, String indirizzo, double costo, LocalTime checkin, LocalTime checkout,
 			boolean feste,
 			boolean fumare, boolean animaliDomestici, List<Camera> camere, List<Servizio> servizi,
 			List<Recensione> recensioni,
@@ -66,7 +68,6 @@ public class Appartamento {
 		this.host = host;
 		this.indirizzo = indirizzo;
 		this.costo = costo;
-		this.ospiti = ospiti;
 		this.checkin = checkin;
 		this.checkout = checkout;
 		this.feste = feste;
@@ -90,9 +91,27 @@ public class Appartamento {
 		return camere;
 	}
 
+	public int getOspiti() {
+		int ospiti = 0;
+
+		if (this.getCamere() != null) {
+			for (Camera camera : this.getCamere()) {
+				for (int index = 0; index < camera.getLettiMatrimoniali(); index++) {
+					ospiti += 2;
+				}
+
+				for (int index = 0; index < camera.getLettiSingoli(); index++) {
+					ospiti += 1;
+				}
+			}
+		}
+
+		return ospiti;
+	}
+
 	public double getVoto() {
 
-		if (this.getRecensioni() == null) {
+		if (this.getRecensioni().size() == 0) {
 			return 0;
 		} else {
 			double totaleVoti = 0;

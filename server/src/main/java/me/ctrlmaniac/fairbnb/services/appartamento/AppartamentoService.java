@@ -17,4 +17,8 @@ public class AppartamentoService {
 	public List<Appartamento> findAll() {
 		return appartamentoRepo.findAll();
 	}
+
+	public Appartamento save(Appartamento appartamento) {
+		return appartamentoRepo.save(appartamento);
+	}
 }
