@@ -2,6 +2,8 @@ package me.ctrlmaniac.fairbnb.entities.appartamento;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +24,7 @@ public class Immagine {
 	private String id;
 
 	@ManyToOne
+	@JsonIncludeProperties("id")
 	private Appartamento appartamento;
 
 	private String immagine;

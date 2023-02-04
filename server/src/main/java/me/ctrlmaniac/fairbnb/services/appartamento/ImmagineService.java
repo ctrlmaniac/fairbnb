@@ -14,8 +14,8 @@ public class ImmagineService {
 	@Autowired
 	ImmagineRepo immagineRepo;
 
-	public Immagine save(Immagine s) {
-		return immagineRepo.save(s);
+	public Immagine save(Immagine o) {
+		return immagineRepo.save(o);
 	}
 
 	public List<Immagine> findAll() {

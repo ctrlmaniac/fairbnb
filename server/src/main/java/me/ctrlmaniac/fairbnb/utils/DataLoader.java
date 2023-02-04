@@ -18,6 +18,7 @@ import me.ctrlmaniac.fairbnb.entities.Account;
 import me.ctrlmaniac.fairbnb.entities.appartamento.Appartamento;
 import me.ctrlmaniac.fairbnb.entities.appartamento.Servizio;
 import me.ctrlmaniac.fairbnb.entities.appartamento.Camera;
+import me.ctrlmaniac.fairbnb.entities.appartamento.Immagine;
 import me.ctrlmaniac.fairbnb.entities.appartamento.Recensione;
 import me.ctrlmaniac.fairbnb.services.AccountService;
 import me.ctrlmaniac.fairbnb.services.appartamento.AppartamentoService;
@@ -194,5 +195,36 @@ public class DataLoader {
 		}
 
 		return recensioni;
+	}
+
+	public List<Immagine> loadImmaginiFromCSV(String filename) {
+		File file = null;
+
+		List<Immagine> immagini = new ArrayList<>();
+		List<Appartamento> appartamenti = appartamentoService.findAll();
+
+		try {
+			file = ResourceUtils.getFile("classpath:" + filename);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+
+		if (file != null) {
+			try {
+				CSVReader csvReader = new CSVReader(new FileReader(file.getPath()));
+
+				String[] values = null;
+
+				while ((values = csvReader.readNext()) != null) {
+					Collections.shuffle(appartamenti);
+
+					immagini.add(new Immagine(appartamenti.get(0), values[0]));
+				}
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			}
+		}
+
+		return immagini;
 	}
 }
