@@ -15,10 +15,12 @@ import me.ctrlmaniac.fairbnb.entities.Account;
 import me.ctrlmaniac.fairbnb.entities.appartamento.Appartamento;
 import me.ctrlmaniac.fairbnb.entities.appartamento.Servizio;
 import me.ctrlmaniac.fairbnb.entities.appartamento.Camera;
+import me.ctrlmaniac.fairbnb.entities.appartamento.Recensione;
 import me.ctrlmaniac.fairbnb.services.AccountService;
 import me.ctrlmaniac.fairbnb.services.appartamento.AppartamentoService;
 import me.ctrlmaniac.fairbnb.services.appartamento.ServizioService;
 import me.ctrlmaniac.fairbnb.services.appartamento.CameraService;
+import me.ctrlmaniac.fairbnb.services.appartamento.RecensioneService;
 import me.ctrlmaniac.fairbnb.utils.DataLoader;
 
 @Component
@@ -51,6 +53,9 @@ public class FairbnbRunner implements CommandLineRunner {
 
 	@Autowired
 	private CameraService cameraService;
+
+	@Autowired
+	private RecensioneService recensioneService;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -110,6 +115,11 @@ public class FairbnbRunner implements CommandLineRunner {
 		// Carica le camere
 		for (Camera camera : dataLoader.loadCamereFromCSV("media/csv/camere.csv")) {
 			cameraService.save(camera);
+		}
+
+		// Carica le recensioni
+		for (Recensione recensione : dataLoader.loadRecensioniFromCSV("media/csv/recensioni.csv")) {
+			recensioneService.save(recensione);
 		}
 	}
 
