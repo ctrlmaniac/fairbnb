@@ -1,5 +1,9 @@
 package me.ctrlmaniac.fairbnb;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -68,6 +72,38 @@ public class FairbnbRunner implements CommandLineRunner {
 
 		// Carica gli appartamenti
 		for (Appartamento appartamento : dataLoader.loadAppartamentiFromCSV("media/csv/appartamenti.csv")) {
+			List<Servizio> servizi = servizioService.findAll();
+
+			// Aggiunge i servizi
+			if (servizi.size() != 0) {
+				Collections.shuffle(servizi);
+
+				Servizio ser1 = servizi.get(0);
+				Servizio ser2 = servizi.get(1);
+				Servizio ser3 = servizi.get(2);
+				Servizio ser4 = servizi.get(3);
+				Servizio ser5 = servizi.get(4);
+				Servizio ser6 = servizi.get(5);
+				Servizio ser7 = servizi.get(6);
+				Servizio ser8 = servizi.get(7);
+				Servizio ser9 = servizi.get(8);
+				Servizio ser10 = servizi.get(9);
+
+				List<Servizio> appServizi = new ArrayList<>();
+				appServizi.add(ser1);
+				appServizi.add(ser2);
+				appServizi.add(ser3);
+				appServizi.add(ser4);
+				appServizi.add(ser5);
+				appServizi.add(ser6);
+				appServizi.add(ser7);
+				appServizi.add(ser8);
+				appServizi.add(ser9);
+				appServizi.add(ser10);
+
+				appartamento.setServizi(appServizi);
+			}
+
 			appartamentoService.save(appartamento);
 		}
 

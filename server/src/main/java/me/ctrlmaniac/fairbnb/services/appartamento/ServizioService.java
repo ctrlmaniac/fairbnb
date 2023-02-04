@@ -1,5 +1,7 @@
 package me.ctrlmaniac.fairbnb.services.appartamento;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,9 @@ public class ServizioService {
 
 	public Servizio save(Servizio s) {
 		return servizioRepo.save(s);
+	}
+
+	public List<Servizio> findAll() {
+		return servizioRepo.findAll();
 	}
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import lombok.Getter;
@@ -51,7 +52,7 @@ public class Appartamento {
 	@Transient
 	private int ospiti;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Servizio> servizi;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "appartamento")
