@@ -121,6 +121,7 @@ public class FairbnbRunner implements CommandLineRunner {
 		for (Recensione recensione : dataLoader.loadRecensioniFromCSV("media/csv/recensioni.csv")) {
 			recensioneService.save(recensione);
 		}
+
 	}
 
 }

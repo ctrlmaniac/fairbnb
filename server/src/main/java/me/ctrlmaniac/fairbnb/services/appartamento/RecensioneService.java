@@ -12,13 +12,13 @@ import me.ctrlmaniac.fairbnb.repositories.appartamento.RecensioneRepo;
 public class RecensioneService {
 
 	@Autowired
-	RecensioneRepo RecensioneRepo;
+	RecensioneRepo recensioneRepo;
 
 	public Recensione save(Recensione o) {
-		return RecensioneRepo.save(o);
+		return recensioneRepo.save(o);
 	}
 
 	public List<Recensione> findAll() {
-		return RecensioneRepo.findAll();
+		return recensioneRepo.findAll();
 	}
 }

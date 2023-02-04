@@ -10,9 +10,9 @@ import me.ctrlmaniac.fairbnb.repositories.appartamento.CameraRepo;
 public class CameraService {
 
 	@Autowired
-	CameraRepo CameraRepo;
+	CameraRepo camperaRepo;
 
 	public Camera save(Camera o) {
-		return CameraRepo.save(o);
+		return camperaRepo.save(o);
 	}
 }

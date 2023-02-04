@@ -10,7 +10,8 @@
     "build": "npx lerna exec --scope=www npm run build",
     "collectwww": "bash collectwww.sh",
     "postbuild": "npm run collectwww",
-    "runserver": "mvnw spring-boot:run -pl server"
+    "runserver": "mvnw spring-boot:run -pl server",
+    "generateCSVs": "bash generateImgsCSV.sh"
   },
   "devDependencies": {
     "lerna": "^5.6.2"
