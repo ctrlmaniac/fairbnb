@@ -46,7 +46,10 @@ public class Appartamento {
 	private int numeroCamere;
 
 	@Transient
-	private int ospiti; // numero massimo di ospiti
+	private int letti;
+
+	@Transient
+	private int ospiti;
 
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Servizio> servizi;
@@ -82,7 +85,7 @@ public class Appartamento {
 	public int getNumeroCamere() {
 		int camere = 0;
 
-		if (this.getCamere() != null) {
+		if (this.getCamere().size() != 0) {
 			for (int index = 0; index < this.getCamere().size(); index++) {
 				camere++;
 			}
@@ -91,10 +94,22 @@ public class Appartamento {
 		return camere;
 	}
 
+	public int getLetti() {
+		int letti = 0;
+
+		if (this.getCamere().size() != 0) {
+			for (Camera camera : this.getCamere()) {
+				letti += camera.getLetti();
+			}
+		}
+
+		return letti;
+	}
+
 	public int getOspiti() {
 		int ospiti = 0;
 
-		if (this.getCamere() != null) {
+		if (this.getCamere().size() != 0) {
 			for (Camera camera : this.getCamere()) {
 				for (int index = 0; index < camera.getLettiMatrimoniali(); index++) {
 					ospiti += 2;

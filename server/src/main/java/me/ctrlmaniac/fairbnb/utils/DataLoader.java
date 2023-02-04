@@ -16,7 +16,10 @@ import com.opencsv.CSVReader;
 import me.ctrlmaniac.fairbnb.entities.Account;
 import me.ctrlmaniac.fairbnb.entities.appartamento.Appartamento;
 import me.ctrlmaniac.fairbnb.entities.appartamento.Servizio;
+import me.ctrlmaniac.fairbnb.entities.appartamento.Camera;
 import me.ctrlmaniac.fairbnb.services.AccountService;
+import me.ctrlmaniac.fairbnb.services.appartamento.AppartamentoService;
+import me.ctrlmaniac.fairbnb.services.appartamento.CameraService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +29,12 @@ public class DataLoader {
 
 	@Autowired
 	AccountService accountService;
+
+	@Autowired
+	AppartamentoService appartamentoService;
+
+	@Autowired
+	CameraService cameraService;
 
 	public List<Servizio> loadServiziFromCSV(String filename) {
 		List<Servizio> servizi = new ArrayList<>();
@@ -118,5 +127,36 @@ public class DataLoader {
 		}
 
 		return appartamento;
+	}
+
+	public List<Camera> loadCamereFromCSV(String filename) {
+		List<Camera> camere = new ArrayList<>();
+		List<Appartamento> appartamenti = appartamentoService.findAll();
+		File file = null;
+
+		try {
+			file = ResourceUtils.getFile("classpath:" + filename);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+
+		if (file != null) {
+			try {
+				CSVReader csvReader = new CSVReader(new FileReader(file.getPath()));
+
+				String[] values = null;
+
+				while ((values = csvReader.readNext()) != null) {
+					Appartamento appartamento = appartamenti.get(Integer.parseInt(values[0]) - 1);
+					int lettiSingoli = Integer.parseInt(values[1]);
+					int lettiMatrimoniali = Integer.parseInt(values[2]);
+					camere.add(new Camera(appartamento, lettiSingoli, lettiMatrimoniali));
+				}
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			}
+		}
+
+		return camere;
 	}
 }

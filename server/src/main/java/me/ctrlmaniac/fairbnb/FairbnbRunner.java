@@ -10,9 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 import me.ctrlmaniac.fairbnb.entities.Account;
 import me.ctrlmaniac.fairbnb.entities.appartamento.Appartamento;
 import me.ctrlmaniac.fairbnb.entities.appartamento.Servizio;
+import me.ctrlmaniac.fairbnb.entities.appartamento.Camera;
 import me.ctrlmaniac.fairbnb.services.AccountService;
 import me.ctrlmaniac.fairbnb.services.appartamento.AppartamentoService;
 import me.ctrlmaniac.fairbnb.services.appartamento.ServizioService;
+import me.ctrlmaniac.fairbnb.services.appartamento.CameraService;
 import me.ctrlmaniac.fairbnb.utils.DataLoader;
 
 @Component
@@ -43,6 +45,9 @@ public class FairbnbRunner implements CommandLineRunner {
 	@Autowired
 	private AppartamentoService appartamentoService;
 
+	@Autowired
+	private CameraService cameraService;
+
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("Application started at http://localhost:8080");
@@ -64,6 +69,11 @@ public class FairbnbRunner implements CommandLineRunner {
 		// Carica gli appartamenti
 		for (Appartamento appartamento : dataLoader.loadAppartamentiFromCSV("media/csv/appartamenti.csv")) {
 			appartamentoService.save(appartamento);
+		}
+
+		// Carica le camere
+		for (Camera camera : dataLoader.loadCamereFromCSV("media/csv/camere.csv")) {
+			cameraService.save(camera);
 		}
 	}
 
