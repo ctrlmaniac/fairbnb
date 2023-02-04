@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 import { accountSlice } from "./features/account/slice";
+import { appartamentiSlice } from "./features/appartamenti/slice";
 
 export const store = configureStore({
   reducer: {
     account: accountSlice.reducer,
+    appartamenti: appartamentiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
