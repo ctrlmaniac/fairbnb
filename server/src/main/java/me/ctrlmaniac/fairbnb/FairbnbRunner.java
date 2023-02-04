@@ -1,6 +1,7 @@
 package me.ctrlmaniac.fairbnb;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,18 +17,36 @@ import me.ctrlmaniac.fairbnb.utils.DataLoader;
 @Slf4j
 public class FairbnbRunner implements CommandLineRunner {
 
-	@Autowired
-	AccountService accountService;
+	@Value("${admin.email}")
+	private String adminEmail;
+
+	@Value("${admin.password}")
+	private String adminPassword;
+
+	@Value("${admin.fname}")
+	private String adminFname;
+
+	@Value("${admin.lname}")
+	private String adminLname;
 
 	@Autowired
-	ServizioService servizioService;
+	private AccountService accountService;
+
+	@Autowired
+	private ServizioService servizioService;
 
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("Application started at http://localhost:8080");
 
-		Account account = new Account("davide.dicriscito@gmail.com", "Davide", "Di Criscito", "12345", "USER");
-		accountService.save(account);
+		// Crea un account Admin
+		Account admin = new Account(adminEmail, adminFname, adminLname, adminPassword, "ADMIN");
+		accountService.save(admin);
+
+		// Carica i dummy account
+		for (Account account : DataLoader.loadAccountFromCSV("media/csv/utenti.csv")) {
+			accountService.save(account);
+		}
 
 		// Carica i servizi
 		for (Servizio servizio : DataLoader.loadServiziFromCSV("media/csv/servizi.csv")) {
