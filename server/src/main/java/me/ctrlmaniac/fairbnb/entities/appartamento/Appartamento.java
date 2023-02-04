@@ -31,6 +31,7 @@ public class Appartamento {
 	@ManyToOne
 	private Account host;
 
+	private String indirizzo;
 	private double costo;
 	private int ospiti; // numero massimo di ospiti
 	private LocalTime checkin;
@@ -57,11 +58,13 @@ public class Appartamento {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "appartamento")
 	private List<Immagine> immagini;
 
-	public Appartamento(Account host, double costo, int ospiti, LocalTime checkin, LocalTime checkout, boolean feste,
+	public Appartamento(Account host, String indirizzo, double costo, int ospiti, LocalTime checkin, LocalTime checkout,
+			boolean feste,
 			boolean fumare, boolean animaliDomestici, List<Camera> camere, List<Servizio> servizi,
 			List<Recensione> recensioni,
 			List<Immagine> immagini) {
 		this.host = host;
+		this.indirizzo = indirizzo;
 		this.costo = costo;
 		this.ospiti = ospiti;
 		this.checkin = checkin;
