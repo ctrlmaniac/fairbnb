@@ -111,15 +111,18 @@ public class DataLoader {
 
 				while ((values = csvReader.readNext()) != null) {
 					Account host = accountService.findByEmail(values[0]);
-					String indirizzo = values[1];
-					Double costo = Double.parseDouble(values[2]);
-					LocalTime checkin = LocalTime.parse(values[3]);
-					LocalTime checkout = LocalTime.parse(values[4]);
-					boolean feste = Boolean.parseBoolean(values[5]);
-					boolean fumare = Boolean.parseBoolean(values[6]);
-					boolean animaliDomestici = Boolean.parseBoolean(values[7]);
+					String comune = values[1];
+					String nazione = values[2];
+					String indirizzo = values[3];
+					Double costo = Double.parseDouble(values[4]);
+					LocalTime checkin = LocalTime.parse(values[5]);
+					LocalTime checkout = LocalTime.parse(values[6]);
+					boolean feste = Boolean.parseBoolean(values[7]);
+					boolean fumare = Boolean.parseBoolean(values[8]);
+					boolean animaliDomestici = Boolean.parseBoolean(values[9]);
 
-					Appartamento app = new Appartamento(host, indirizzo, costo, checkin, checkout, feste, fumare,
+					Appartamento app = new Appartamento(host, comune, nazione, indirizzo, costo, checkin, checkout,
+							feste, fumare,
 							animaliDomestici, null, null, null, null);
 
 					appartamento.add(app);
