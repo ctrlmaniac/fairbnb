@@ -120,10 +120,11 @@ public class DataLoader {
 					boolean feste = Boolean.parseBoolean(values[7]);
 					boolean fumare = Boolean.parseBoolean(values[8]);
 					boolean animaliDomestici = Boolean.parseBoolean(values[9]);
+					int bagni = Integer.parseInt(values[10]);
 
 					Appartamento app = new Appartamento(host, comune, nazione, indirizzo, costo, checkin, checkout,
 							feste, fumare,
-							animaliDomestici, null, null, null, null);
+							animaliDomestici, bagni, null, null, null, null);
 
 					appartamento.add(app);
 				}

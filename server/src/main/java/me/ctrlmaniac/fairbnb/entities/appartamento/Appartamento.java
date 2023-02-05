@@ -42,6 +42,8 @@ public class Appartamento {
 	private boolean fumare;
 	private boolean animaliDomestici;
 
+	private int bagni;
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "appartamento")
 	private List<Camera> camere;
 
@@ -69,7 +71,7 @@ public class Appartamento {
 	public Appartamento(Account host, String comune, String nazione, String indirizzo, double costo, LocalTime checkin,
 			LocalTime checkout,
 			boolean feste,
-			boolean fumare, boolean animaliDomestici, List<Camera> camere, List<Servizio> servizi,
+			boolean fumare, boolean animaliDomestici, int bagni, List<Camera> camere, List<Servizio> servizi,
 			List<Recensione> recensioni,
 			List<Immagine> immagini) {
 		this.host = host;
@@ -82,6 +84,7 @@ public class Appartamento {
 		this.feste = feste;
 		this.fumare = fumare;
 		this.animaliDomestici = animaliDomestici;
+		this.bagni = bagni;
 		this.camere = camere;
 		this.servizi = servizi;
 		this.recensioni = recensioni;
