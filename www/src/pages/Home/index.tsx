@@ -33,7 +33,7 @@ const Home: React.FC = () => {
           spacing={2}
         >
           {appartamenti?.map((appartamento) => (
-            <Grid item xs={6} sm={4} md={3} lg={2} key={appartamento.id}>
+            <Grid item xs={6} sm={4} md={3} xl={2} key={appartamento.id}>
               <AppartamentoWidget appartamento={appartamento} />
             </Grid>
           ))}

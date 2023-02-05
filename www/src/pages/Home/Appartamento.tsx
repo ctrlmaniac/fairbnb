@@ -15,18 +15,28 @@ interface Props {
 }
 
 const AppartamentoWidget: React.FC<Props> = ({ appartamento }) => {
+  let baseUrl = "";
+
+  if (import.meta.env.MODE === "development") {
+    baseUrl = "http://localhost:8080";
+  }
+
   return (
     <>
       <Card>
         {!isEmpty(appartamento.immagini) && (
           <CardMedia
             sx={{ height: 300 }}
-            image={appartamento.immagini[0].immagine}
+            image={baseUrl + appartamento.immagini[0].immagine}
             title="appartamento"
           />
         )}
         <CardContent>
-          <Typography>Appartamento</Typography>
+          <Typography>
+            <strong>
+              {appartamento.comune}, {appartamento.nazione}
+            </strong>
+          </Typography>
         </CardContent>
         <CardActions>
           <Button>prenota</Button>
