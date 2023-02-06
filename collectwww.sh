@@ -1,6 +1,11 @@
 #!/bin/sh
 
-rm -rf server/src/main/resources/static/assets
-rm server/src/main/resources/static/index.html
-cp -r www/dist/index.html server/src/main/resources/static/index.html
-cp -r www/dist/assets server/src/main/resources/static/assets
+STATICDIR=server/src/main/resources/static
+
+for dir in $STATICDIR/*;
+do
+  [ "$dir" = "$STATICDIR/media" ] && continue
+  rm -rfv "$dir"
+done
+
+cp -a www/dist/. $STATICDIR/
