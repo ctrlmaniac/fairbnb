@@ -10,7 +10,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>server</module>
+		<module>fairbnb</module>
 	</modules>
 
 </project>
