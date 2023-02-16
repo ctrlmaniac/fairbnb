@@ -1,6 +1,6 @@
 #!/bin/sh
 
-STATICDIR=server/src/main/resources/static
+STATICDIR=fairbnb/src/main/resources/static
 
 for dir in $STATICDIR/*;
 do
