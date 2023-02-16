@@ -25,7 +25,7 @@ const AppartamentoWidget: React.FC<Props> = ({ appartamento }) => {
     <>
       <Card
         raised={false}
-        onClick={() => navigate(`/appartamenti/${appartamento.id}`)}
+        onClick={() => navigate(`/appartamento/${appartamento.id}`)}
         sx={{ cursor: "pointer", boxShadow: 0 }}
       >
         <CardContent>

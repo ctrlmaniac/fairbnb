@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,11 +18,22 @@ import me.ctrlmaniac.fairbnb.entities.appartamento.Appartamento;
 public class AppartamentoRest {
 
 	@Autowired
-	AppartamentoService appartamentoService;
+	AppartamentoService service;
 
 	@GetMapping("")
 	public ResponseEntity<List<Appartamento>> findAll() {
-		return new ResponseEntity<>(appartamentoService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findById(@PathVariable String id) {
+		Appartamento app = service.findById(id);
+
+		if (app != null) {
+			return new ResponseEntity<>(app, HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>("Appartamento non trovato", HttpStatus.NOT_FOUND);
 	}
 
 }

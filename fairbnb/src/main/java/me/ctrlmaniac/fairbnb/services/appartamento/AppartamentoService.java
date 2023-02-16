@@ -1,6 +1,7 @@
 package me.ctrlmaniac.fairbnb.services.appartamento;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +13,23 @@ import me.ctrlmaniac.fairbnb.entities.appartamento.Appartamento;
 public class AppartamentoService {
 
 	@Autowired
-	private AppartamentoRepo appartamentoRepo;
+	private AppartamentoRepo repo;
 
 	public List<Appartamento> findAll() {
-		return appartamentoRepo.findAll();
+		return repo.findAll();
+	}
+
+	public Appartamento findById(String id) {
+		Optional<Appartamento> opt = repo.findById(id);
+
+		if (opt.isPresent()) {
+			return opt.get();
+		}
+
+		return null;
 	}
 
 	public Appartamento save(Appartamento appartamento) {
-		return appartamentoRepo.save(appartamento);
+		return repo.save(appartamento);
 	}
 }
