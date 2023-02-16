@@ -1,11 +1,9 @@
 import React from "react";
 import {
-  Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
+  Skeleton,
   Typography,
 } from "@mui/material";
 import { isEmpty } from "lodash";
@@ -30,14 +28,13 @@ const AppartamentoWidget: React.FC<Props> = ({ appartamento }) => {
         onClick={() => navigate(`/appartamenti/${appartamento.id}`)}
         sx={{ cursor: "pointer", boxShadow: 0 }}
       >
-        {!isEmpty(appartamento.immagini) && (
-          <CardMedia
-            sx={{ height: 300, borderRadius: 4 }}
-            image={baseUrl + appartamento.immagini[0].immagine}
-            title="appartamento"
-          />
-        )}
         <CardContent>
+          {!isEmpty(appartamento.immagini) && (
+            <CardMedia
+              image={baseUrl + appartamento.immagini[0].immagine}
+              sx={{ height: 300, borderRadius: 4 }}
+            />
+          )}
           <Typography>
             <strong>
               {appartamento.comune}, {appartamento.nazione}

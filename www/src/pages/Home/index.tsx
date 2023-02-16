@@ -1,9 +1,9 @@
-import { Box, Fab, Grid } from "@mui/material";
+import { Box, Fab, Grid, Skeleton } from "@mui/material";
 import React from "react";
 import { LoadingScreen } from "~/components";
 import list from "~/features/appartamenti/list";
 import { useAppDispatch, useAppSelector } from "~/hooks";
-import AppartamentoWidget from "./Appartamento";
+const AppartamentoWidget = React.lazy(() => import("./Appartamento"));
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -34,7 +34,20 @@ const Home: React.FC = () => {
         >
           {appartamenti?.map((appartamento) => (
             <Grid item xs={6} sm={4} md={3} xl={2} key={appartamento.id}>
-              <AppartamentoWidget appartamento={appartamento} />
+              <React.Suspense
+                fallback={
+                  <>
+                    <Skeleton
+                      height={300}
+                      variant="rounded"
+                      sx={{ marginBottom: 1 }}
+                    />
+                    <Skeleton variant="rounded" />
+                  </>
+                }
+              >
+                <AppartamentoWidget appartamento={appartamento} />
+              </React.Suspense>
             </Grid>
           ))}
         </Grid>
