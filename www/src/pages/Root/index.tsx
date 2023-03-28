@@ -1,6 +1,7 @@
 import {
   AppBar,
   Box,
+  Button,
   IconButton,
   Menu,
   MenuItem,
@@ -11,13 +12,14 @@ import {
 import { IconUser } from "@tabler/icons-react";
 import { isEmpty } from "lodash";
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import theme from "~/theme";
 import Registrati from "./Registrati";
 import Login from "./Login";
 import AccountDrawer from "./AccountDrawer";
 
 const Root: React.FC = () => {
+  const navigate = useNavigate();
   const token = window.localStorage.getItem("token");
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -47,10 +49,17 @@ const Root: React.FC = () => {
         sx={{ borderBottom: `1px solid ${theme.palette.divider}` }}
       >
         <Toolbar>
-          <Typography variant="h6">fairbnb</Typography>
+          <Typography
+            variant="h6"
+            sx={{ cursor: "pointer" }}
+            onClick={() => navigate("/")}
+          >
+            fairbnb
+          </Typography>
           <Box sx={{ flexGrow: 1 }} mx={3}>
             <TextField fullWidth size="small" label="cerca" />
           </Box>
+          <Button onClick={() => navigate("/affitta")}>affitta</Button>
           <IconButton color="primary" onClick={handleAccountClick}>
             <IconUser />
           </IconButton>
