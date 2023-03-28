@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import me.ctrlmaniac.fairbnb.api.entities.account.Account;
 import me.ctrlmaniac.fairbnb.api.payloads.auth.AuthRequest;
 import me.ctrlmaniac.fairbnb.api.payloads.auth.AuthResponse;
+import me.ctrlmaniac.fairbnb.api.payloads.auth.RegisterRequest;
 import me.ctrlmaniac.fairbnb.api.services.account.AccountService;
 import me.ctrlmaniac.fairbnb.api.utils.JwtTokenUtil;
 
@@ -50,5 +51,16 @@ public class AuthController {
 		} catch (BadCredentialsException ex) {
 			return new ResponseEntity<>("Account non autorizzato", HttpStatus.UNAUTHORIZED);
 		}
+	}
+
+	@PostMapping("/register")
+	public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+		Account account = new Account();
+		account.setEmail(request.getEmail());
+		account.setPassword(request.getPassword());
+		account.setFirstName(request.getFirstName());
+		account.setLastName(request.getLastName());
+
+		return new ResponseEntity<>(accountService.create(account), HttpStatus.CREATED);
 	}
 }
