@@ -60,7 +60,7 @@ public class SpringSecurityConfig {
 		http = http.cors(cors -> cors.disable());
 
 		http = http.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/auth/login").permitAll()
+				.requestMatchers("/auth", "/auth/**").permitAll()
 				.anyRequest().permitAll());
 
 		http = http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
