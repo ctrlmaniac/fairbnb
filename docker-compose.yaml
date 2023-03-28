@@ -1,0 +1,10 @@
+name: fairbnb
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - ./data/db:/var/lib/postgresql
