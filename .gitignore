@@ -1,2 +1,10 @@
+### MAVEN
 !.mvn/wrapper/maven-wrapper.jar
+
+### ENV VARS
 .env*
+
+### DOCKER VOLUMES
+data/
+!api/**/data/
+!www/**/data
