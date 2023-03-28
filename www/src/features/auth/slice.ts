@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface LoginSuccessResponse {
+  email: string;
+  accessToken: string;
+}
+
 interface State {
   response?: string;
   login: boolean;
@@ -28,10 +33,12 @@ export const authSlice = createSlice({
       state.response = undefined;
       state.loginError = false;
     },
-    loginSuccess: (state, action: PayloadAction<string>) => {
-      state.response = action.payload;
+    loginSuccess: (state, action: PayloadAction<LoginSuccessResponse>) => {
+      state.response = "Utente autenticato";
       state.loginError = false;
       state.login = false;
+
+      window.localStorage.setItem("token", JSON.stringify(action.payload));
     },
     loginFail: (state, action: PayloadAction<string>) => {
       state.response = action.payload;
@@ -56,6 +63,14 @@ export const authSlice = createSlice({
   },
 });
 
-export const { loginStart, loginSuccess, loginFail } = authSlice.actions;
+export const {
+  unsetResponse,
+  loginStart,
+  loginSuccess,
+  loginFail,
+  registerFail,
+  registerStart,
+  registerSuccess,
+} = authSlice.actions;
 
 export default authSlice.reducer;

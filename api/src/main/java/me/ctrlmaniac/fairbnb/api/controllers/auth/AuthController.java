@@ -55,12 +55,16 @@ public class AuthController {
 
 	@PostMapping("/register")
 	public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-		Account account = new Account();
-		account.setEmail(request.getEmail());
-		account.setPassword(request.getPassword());
-		account.setFirstName(request.getFirstName());
-		account.setLastName(request.getLastName());
+		if (!accountService.existsByEmail(request.getEmail())) {
+			Account account = new Account();
+			account.setEmail(request.getEmail());
+			account.setPassword(request.getPassword());
+			account.setFirstName(request.getFirstName());
+			account.setLastName(request.getLastName());
 
-		return new ResponseEntity<>(accountService.create(account), HttpStatus.CREATED);
+			return new ResponseEntity<>(accountService.create(account), HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>("Account già registrato!", HttpStatus.BAD_REQUEST);
+		}
 	}
 }
