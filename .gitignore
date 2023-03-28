@@ -8,3 +8,6 @@
 data/
 !api/**/data/
 !www/**/data
+
+### Node
+node_modules/
