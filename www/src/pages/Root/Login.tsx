@@ -1,17 +1,15 @@
 import {
   Alert,
-  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  LinearProgress,
   TextField,
 } from "@mui/material";
 import { isEmpty } from "lodash";
 import React from "react";
-import register from "~/features/auth/register";
+import login from "~/features/auth/login";
 import { unsetResponse } from "~/features/auth/slice";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 
@@ -20,24 +18,22 @@ interface Props {
   handleOpen: Function;
 }
 
-const Registrati: React.FC<Props> = ({ open, handleOpen }) => {
+const Login: React.FC<Props> = ({ open, handleOpen }) => {
   const dispatch = useAppDispatch();
-  const { registering, registerError, loginError, response } = useAppSelector(
-    (state) => state.auth
-  );
+  const {
+    login: loading,
+    loginError,
+    response,
+  } = useAppSelector((state) => state.auth);
 
   const [values, setValues] = React.useState({
     email: "",
     password: "",
-    firstName: "",
-    lastName: "",
   });
 
   const [errors, setErrors] = React.useState({
     email: true,
     password: true,
-    firstName: true,
-    lastName: true,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,40 +56,19 @@ const Registrati: React.FC<Props> = ({ open, handleOpen }) => {
     setDisabled(!Object.values(errors).every((value) => value === false));
   }, [errors]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    dispatch(register(values));
+  const handleSubmit = () => {
+    dispatch(login(values));
 
     setTimeout(() => {
+      dispatch(unsetResponse());
       handleOpen(false);
     }, 2000);
   };
 
   return (
     <Dialog open={open} onClose={() => handleOpen(false)}>
-      {registering && <LinearProgress />}
-      <DialogTitle>Registrati</DialogTitle>
+      <DialogTitle>Accedi</DialogTitle>
       <DialogContent>
-        <TextField
-          fullWidth
-          label="Nome"
-          name="firstName"
-          value={values.firstName}
-          error={errors.firstName}
-          onChange={handleChange}
-          margin="normal"
-        />
-
-        <TextField
-          fullWidth
-          label="Cognome"
-          name="lastName"
-          value={values.lastName}
-          error={errors.lastName}
-          onChange={handleChange}
-          margin="normal"
-        />
-
         <TextField
           fullWidth
           type="email"
@@ -107,6 +82,7 @@ const Registrati: React.FC<Props> = ({ open, handleOpen }) => {
 
         <TextField
           fullWidth
+          type="password"
           label="password"
           name="password"
           value={values.password}
@@ -116,29 +92,24 @@ const Registrati: React.FC<Props> = ({ open, handleOpen }) => {
         />
 
         {!isEmpty(response) && (
-          <Alert
-            severity={registerError ? "error" : "success"}
-            variant="outlined"
-          >
+          <Alert variant="outlined" severity={loginError ? "error" : "success"}>
             {response}
           </Alert>
         )}
       </DialogContent>
+
       <DialogActions>
-        <Button type="reset" color="error" onClick={() => handleOpen(false)}>
-          annulla
-        </Button>
         <Button
           type="submit"
           variant="contained"
-          onClick={handleSubmit}
           disabled={disabled}
+          onClick={handleSubmit}
         >
-          Registrati
+          accedi
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default Registrati;
+export default Login;

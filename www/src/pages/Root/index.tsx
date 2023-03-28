@@ -14,6 +14,8 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import theme from "~/theme";
 import Registrati from "./Registrati";
+import Login from "./Login";
+import AccountDrawer from "./AccountDrawer";
 
 const Root: React.FC = () => {
   const token = window.localStorage.getItem("token");
@@ -25,10 +27,14 @@ const Root: React.FC = () => {
   };
 
   const [openRegistrati, setOpenRegistrati] = React.useState(false);
+  const [openLogin, setOpenLogin] = React.useState(false);
+  const [openAccountDrawer, setOpenAccountDrawer] = React.useState(false);
 
   const handleAccountClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (isEmpty(token)) {
       setAnchorEl(event.currentTarget);
+    } else {
+      setOpenAccountDrawer(true);
     }
   };
 
@@ -57,7 +63,14 @@ const Root: React.FC = () => {
         open={openMenu}
         onClose={() => setAnchorEl(null)}
       >
-        <MenuItem>Accedi</MenuItem>
+        <MenuItem
+          onClick={() => {
+            setOpenLogin(true);
+            handleMenuClose();
+          }}
+        >
+          Accedi
+        </MenuItem>
         <MenuItem
           onClick={() => {
             setOpenRegistrati(true);
@@ -69,6 +82,11 @@ const Root: React.FC = () => {
       </Menu>
 
       <Registrati open={openRegistrati} handleOpen={setOpenRegistrati} />
+      <Login open={openLogin} handleOpen={setOpenLogin} />
+      <AccountDrawer
+        open={openAccountDrawer}
+        handleOpen={setOpenAccountDrawer}
+      />
 
       <Toolbar />
       <Box mt={3} mx={3}>
