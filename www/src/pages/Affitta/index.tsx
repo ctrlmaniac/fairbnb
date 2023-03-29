@@ -3,6 +3,7 @@ import { isEmpty } from "lodash";
 import React from "react";
 import house from "~/assets/images/house.webp";
 import { useAppSelector } from "~/hooks";
+import AptForm from "./AptForm";
 
 const Affitta: React.FC = () => {
   const { principal } = useAppSelector((state) => state.account);
@@ -34,10 +35,12 @@ const Affitta: React.FC = () => {
       </Box>
 
       <Box>
-        {isEmpty(principal) && (
+        {isEmpty(principal) ? (
           <Typography align="center">
             Devi accedere per poter affittare un appartamento!
           </Typography>
+        ) : (
+          <AptForm />
         )}
       </Box>
     </>

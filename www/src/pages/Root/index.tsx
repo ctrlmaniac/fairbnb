@@ -31,9 +31,8 @@ const Root: React.FC = () => {
   // check token validity
   React.useEffect(() => {
     if (!isEmpty(token)) {
-      const parsed = JSON.parse(token!);
-      dispatch(checkToken(parsed.accessToken));
-      dispatch(getPrincipal(parsed.accessToken));
+      dispatch(checkToken(JSON.parse(token!)));
+      dispatch(getPrincipal(JSON.parse(token!)));
     }
   }, [token]);
 
@@ -113,7 +112,7 @@ const Root: React.FC = () => {
       />
 
       <Toolbar />
-      <Box mt={3} mx={3}>
+      <Box mt={3} mb={12} mx={3}>
         <Outlet />
       </Box>
     </>

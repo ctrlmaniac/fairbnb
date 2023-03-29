@@ -42,7 +42,10 @@ export const authSlice = createSlice({
       state.loginError = false;
       state.login = false;
 
-      window.localStorage.setItem("token", JSON.stringify(action.payload));
+      window.localStorage.setItem(
+        "token",
+        JSON.stringify(action.payload.accessToken)
+      );
     },
     loginFail: (state, action: PayloadAction<string>) => {
       state.response = action.payload;
