@@ -1,6 +1,6 @@
 import { Box, Button, Drawer } from "@mui/material";
 import React from "react";
-import checkToken from "~/features/auth/checkToken";
+import { unsetPrincipal } from "~/features/account/slice";
 import { useAppDispatch } from "~/hooks";
 
 interface Props {
@@ -9,8 +9,12 @@ interface Props {
 }
 
 const AccountDrawer: React.FC<Props> = ({ open, handleOpen }) => {
+  const dispatch = useAppDispatch();
+
   const handleLogout = () => {
     handleOpen(false);
+    dispatch(unsetPrincipal());
+
     window.localStorage.removeItem("token");
   };
 

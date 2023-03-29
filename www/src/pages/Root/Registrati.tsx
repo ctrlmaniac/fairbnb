@@ -12,7 +12,7 @@ import {
 import { isEmpty } from "lodash";
 import React from "react";
 import register from "~/features/auth/register";
-import { unsetResponse } from "~/features/auth/slice";
+import { unsetResponse } from "~/features/account/slice";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 
 interface Props {

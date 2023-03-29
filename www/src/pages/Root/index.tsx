@@ -19,6 +19,7 @@ import Login from "./Login";
 import AccountDrawer from "./AccountDrawer";
 import checkToken from "~/features/auth/checkToken";
 import { useAppDispatch, useAppSelector } from "~/hooks";
+import getPrincipal from "~/features/account/getPrincipal";
 
 const Root: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ const Root: React.FC = () => {
     if (!isEmpty(token)) {
       const parsed = JSON.parse(token!);
       dispatch(checkToken(parsed.accessToken));
+      dispatch(getPrincipal(parsed.accessToken));
     }
   }, [token]);
 
