@@ -11,6 +11,8 @@ interface State {
   loginError: boolean;
   registering: boolean;
   registerError: boolean;
+  checkingTokenValidity: boolean;
+  isTokenValid: boolean;
 }
 
 const initialState: State = {
@@ -19,6 +21,8 @@ const initialState: State = {
   loginError: false,
   registering: false,
   registerError: false,
+  checkingTokenValidity: false,
+  isTokenValid: false,
 };
 
 export const authSlice = createSlice({
@@ -60,6 +64,18 @@ export const authSlice = createSlice({
       state.registerError = true;
       state.registering = false;
     },
+    checkTokenValidityStart: (state) => {
+      state.checkingTokenValidity = true;
+      state.isTokenValid = false;
+    },
+    checkTokenValidityFail: (state, action: PayloadAction<boolean>) => {
+      state.checkingTokenValidity = false;
+      state.isTokenValid = action.payload;
+    },
+    checkTokenValiditySuccess: (state, action: PayloadAction<boolean>) => {
+      state.checkingTokenValidity = false;
+      state.isTokenValid = action.payload;
+    },
   },
 });
 
@@ -71,6 +87,9 @@ export const {
   registerFail,
   registerStart,
   registerSuccess,
+  checkTokenValidityFail,
+  checkTokenValidityStart,
+  checkTokenValiditySuccess,
 } = authSlice.actions;
 
 export default authSlice.reducer;

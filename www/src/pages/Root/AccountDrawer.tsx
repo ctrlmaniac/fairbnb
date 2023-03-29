@@ -1,5 +1,7 @@
 import { Box, Button, Drawer } from "@mui/material";
 import React from "react";
+import checkToken from "~/features/auth/checkToken";
+import { useAppDispatch } from "~/hooks";
 
 interface Props {
   open: boolean;

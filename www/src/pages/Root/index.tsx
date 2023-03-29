@@ -17,10 +17,23 @@ import theme from "~/theme";
 import Registrati from "./Registrati";
 import Login from "./Login";
 import AccountDrawer from "./AccountDrawer";
+import checkToken from "~/features/auth/checkToken";
+import { useAppDispatch, useAppSelector } from "~/hooks";
 
 const Root: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { isTokenValid } = useAppSelector((state) => state.auth);
+
   const token = window.localStorage.getItem("token");
+
+  // check token validity
+  React.useEffect(() => {
+    if (!isEmpty(token)) {
+      const parsed = JSON.parse(token!);
+      dispatch(checkToken(parsed.accessToken));
+    }
+  }, [token]);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);

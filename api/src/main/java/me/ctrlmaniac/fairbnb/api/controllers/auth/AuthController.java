@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import me.ctrlmaniac.fairbnb.api.entities.account.Account;
 import me.ctrlmaniac.fairbnb.api.payloads.auth.AuthRequest;
 import me.ctrlmaniac.fairbnb.api.payloads.auth.AuthResponse;
+import me.ctrlmaniac.fairbnb.api.payloads.auth.CheckTokenRequest;
 import me.ctrlmaniac.fairbnb.api.payloads.auth.RegisterRequest;
 import me.ctrlmaniac.fairbnb.api.services.account.AccountService;
 import me.ctrlmaniac.fairbnb.api.utils.JwtTokenUtil;
@@ -32,6 +33,13 @@ public class AuthController {
 
 	@Autowired
 	private JwtTokenUtil jwtUtil;
+
+	@PostMapping("")
+	public ResponseEntity<?> checkTokenValidity(@RequestBody CheckTokenRequest request) {
+		boolean isValid = jwtUtil.validateAccessToken(request.getToken());
+
+		return new ResponseEntity<>(isValid, HttpStatus.OK);
+	}
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody AuthRequest request) {
